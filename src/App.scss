@@ -1,0 +1,91 @@
+$primary: #00b666;
+$secondary: #a000c0;
+
+@import url("http://fonts.googleapis.com/css?family=Ubuntu");
+
+
+.App {
+  text-align: center;
+  background-color: rgb(20, 20, 20);
+  font-family: 'Ubuntu', sans-serif !important;
+}
+
+.App-header {
+  background-color: #0449d3;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.top-title{
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding-top: 1rem;
+  font-size: 1rem;
+
+}
+.car-emoji {
+  font-size: 3vw;
+  white-space: nowrap;
+}
+
+.constructor{
+  padding-top: 1rem;
+}
+
+.container .results-list{
+  border: solid 2px #00b666;
+  border-radius: 1rem;
+}
+
+.search label{
+  color: #a7a7a7;
+}
+
+.container{
+  text-align:center;
+  //max-width: 80%;
+}
+
+.container .standing{
+  border-bottom: 1px solid #ffffff;
+  border-bottom-left-radius: 10px 10px;
+  border-bottom-right-radius: 10px 10px;
+}
+
+.driver {
+  display: inline-block; //this is what makes them horizontal
+  color: #000000;
+  padding: 1rem;
+}
+
+.driver a{
+  color: #000000;
+  text-decoration: none;
+}
+.driver a #hover{
+  color: #cc00ff;
+  text-decoration: none;
+}
+
+.constructor a{
+  color: #a7a7a7;
+  text-decoration: none;
+}
+
+.Card.Text {
+  // text-align: left;
+  // white-space: nowrap;
+  
+}
+
+.top-header {
+  color: #ffffff;
+}
+
+@import '~bootstrap/scss/bootstrap.scss';
