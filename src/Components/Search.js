@@ -42,7 +42,7 @@ const Search = () => {
     //params - year
     //standings after certain race - http://ergast.com/api/f1/' + year + /round "/driverStandings.json
     axios
-      .get("http://ergast.com/api/f1/" + year + "/driverStandings.json/")
+      .get("https://ergast.com/api/f1/" + year + "/driverStandings.json/")
       .then((res) => {
         const response = JSON.parse(res.request.response);
         const data = response.MRData;
