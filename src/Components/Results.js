@@ -1,5 +1,6 @@
 import SeasonStandingsList from "./SeasonStandingsList";
 import CircuitsList from "./CircuitsList";
+import ScheduleList from "./ScheduleList";
 
 import { Container } from "react-bootstrap";
 
@@ -19,8 +20,11 @@ const Results = ({ searchResults, queryType }) => {
     case "circuits":
       Component = CircuitsList;
       break;
+    case "schedule":
+      Component = ScheduleList;
+      break;
     default:
-        Component = SeasonStandingsList;
+      Component = SeasonStandingsList;
   }
 
   if (Object.keys(searchResults).length > 0) {

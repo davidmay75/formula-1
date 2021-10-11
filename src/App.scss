@@ -1,5 +1,6 @@
 $primary: #00b666;
 $secondary: #a000c0;
+$greyAccent: #696969;
 
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
 //09cd09 - cool color from an album cover
@@ -10,16 +11,10 @@ $secondary: #a000c0;
   font-family: 'Ubuntu', sans-serif !important;
 }
 
-.App-header {
-  background-color: #0449d3;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.scheduleRace{
+  padding-bottom: 1rem;
 }
+
 
 .top-title{
   align-items: center;
@@ -41,15 +36,11 @@ $secondary: #a000c0;
 .container .results-list{
   border: solid 2px #00b666;
   border-radius: 1rem;
+  padding-top: 1rem;
 }
 
 .search label{
   color: #a7a7a7;
-}
-
-.container{
-  //text-align:center;
-  //max-width: 80%;
 }
 
 .container .standing{
@@ -57,7 +48,28 @@ $secondary: #a000c0;
   border-bottom-left-radius: 10px 10px;
   border-bottom-right-radius: 10px 10px;
 }
+.scheduleRace h4{
+  display: inline-block; //this is what makes them horizontal
+  color: #000000;
+  padding: 1rem;
+}
+.scheduleRace a{
+  color: #000000;
+  text-decoration: none;
+}
+.underline{
+  text-decoration: underline;
+}
 
+.circuit {
+  color: #ffffff;
+  padding-bottom: 1rem;
+
+}
+.circuit a{
+  color: #ffffff;
+  text-decoration: none;
+}
 .driver {
   display: inline-block; //this is what makes them horizontal
   color: #000000;
@@ -78,11 +90,6 @@ $secondary: #a000c0;
   text-decoration: none;
 }
 
-.Card.Text {
-  // text-align: left;
-  // white-space: nowrap;
-  
-}
 
 .top-header {
   color: #ffffff;

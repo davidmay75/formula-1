@@ -19,6 +19,10 @@ const useSearch = () => {
       label: "Circuits",
       value: "circuits",
     },
+    {
+      label: "Race Schedule",
+      value: "schedule",//this is a blank query type for api - just need year
+    },
   ];
 
   function search() {
@@ -30,6 +34,9 @@ const useSearch = () => {
       case "circuits":
         getCircuits();
         break;
+      case "schedule":
+        getSchedule();
+        break;
       default:
         console.log("QueryType not valid ", { queryType });
     }
@@ -37,6 +44,28 @@ const useSearch = () => {
 
   function generateUrl() {
     //http://ergast.com/api/f1/' year / round / queryType.json
+    //schedules has no queryType
+  }
+
+  function getSchedule() {
+    //params - year
+    axios
+      .get("https://ergast.com/api/f1/" + year + ".json")
+      .then((res) => {
+        const response = JSON.parse(res.request.response);
+        const data = response.MRData;
+
+        console.log("Data", data.RaceTable.Races);
+
+        if (data.hasOwnProperty("RaceTable")) {
+          setSearchResults(data.RaceTable.Races);
+        } else {
+          console.log("No RaceTable...");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   function getCircuits() {
