@@ -1,69 +1,55 @@
 import { useState } from "react";
 import axios from "axios";
-import { Container, Form, Button } from "react-bootstrap";
+import Results from "./Results";
+import SeasonStandingsList from "./SeasonStandingsList";
+import {Container, Form, Button } from "react-bootstrap";
+import Form1 from "react-bootstrap/Form";
 
-const useSearch = () => {
-  const [searchResults, setSearchResults] = useState([]);
-  const [queryType, setQueryType] = useState("driverStandings");
-
+const Search = () => {
+  //const [driverResults, setDriverResults] = useState([])
+  const [constructorResults, setConstructorResults] = useState([]);
+  const [constructorDriversResults, setConstructorDriversResults] = useState(
+    []
+  );
   const [year, setYear] = useState("2021");
-  //const [round, setRound] = useState(0);
+
+  const [round, setRound] = useState(0);
+  const [queryType, setQueryType] = useState("");
   const [groupByTeam, setGroupByTeam] = useState(true);
 
-  const options = [
-    {
-      label: "Driver Standings",
-      value: "driverStandings",
-    },
-    {
-      label: "Circuits",
-      value: "circuits",
-    },
-  ];
 
-  function search() {
 
-    switch (queryType) {
-      case "driverStandings":
-        getDriverStandings();
-        break;
-      case "circuits":
-        getCircuits();
-        break;
-      default:
-        console.log("QueryType not valid ", { queryType });
-    }
-  }
+  // function getDriverByYear() {
+  //     ///api/f1/2007/drivers.json driver format
+  //     ///api/f1/2007.json RaceTable result
+  //     axios.get('http://ergast.com/api/f1/' + year + "/drivers.json")
+  //         .then(res => {
 
-  function generateUrl() {
+  //             const response = JSON.parse(res.request.response)
+  //             const data = response.MRData
+
+  //             if (data.hasOwnProperty('DriverTable')) {
+
+  //                 setDriverResults(data.DriverTable.Drivers)
+
+  //             }else{
+  //                 console.log("NO DriverTable")
+  //             }
+
+  //         }).catch((e) => {
+  //             console.log(e)
+  //         })
+  // }
+
+  function generateUrl(){
     //http://ergast.com/api/f1/' year / round / queryType.json
   }
 
-  function getCircuits() {
-    //params - year
-    axios
-      .get("https://ergast.com/api/f1/" + year + "/circuits.json")
-      .then((res) => {
-        const response = JSON.parse(res.request.response);
-        const data = response.MRData;
-
-        console.log("Data", data.CircuitTable.Circuits);
-
-        if (data.hasOwnProperty("CircuitTable")) {
-          setSearchResults(data.CircuitTable.Circuits);
-        } else {
-          console.log("No CircuitTable...");
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
   function getDriverStandings() {
-    if (groupByTeam) {
+
+    if(groupByTeam){
       //do what we currently have
-    } else {
+    }else{
       //only show drivers
     }
     //params - year
@@ -95,7 +81,7 @@ const useSearch = () => {
               driver["points"] = standing.points;
               driver["wins"] = standing.wins;
               driverArray.push(standing.Driver);
-
+              console.log("NEW DRIVER array");
               //add driver aray to constructor Object
               constructor["Drivers"] = driverArray;
               //add new Key Value to constructors object
@@ -114,9 +100,11 @@ const useSearch = () => {
             }
           });
 
-          // set results to the array of objects created for constructor and drivers
-          setSearchResults(Object.values(constructors));
+          let returnArray = Object.values(constructors);
+          console.log("constructors object being set");
+          console.log(returnArray);
 
+          setConstructorDriversResults(returnArray);
         } else {
           console.log("No StandingsTable...");
         }
@@ -155,7 +143,7 @@ const useSearch = () => {
           });
 
           let returnArray = Object.values(constructors);
-          setSearchResults(returnArray);
+          setConstructorDriversResults(returnArray);
         } else {
           console.log("No StandingsTable...");
         }
@@ -173,7 +161,7 @@ const useSearch = () => {
         const data = response.MRData;
 
         if (data.hasOwnProperty("ConstructorTable")) {
-          setSearchResults(data.ConstructorTable.Constructors);
+          setConstructorResults(data.ConstructorTable.Constructors);
           console.log(data.ConstructorTable.Constructors);
         } else {
           console.log("NO ConstructorTable");
@@ -184,76 +172,72 @@ const useSearch = () => {
       });
   }
 
-  return {
-    searchResults,
-    queryType,
+  return (
+    <Container className="search text-light">
+      <div className="row">
+        <h1 className="text-primary">Search</h1>
+      </div>
 
-    render: (
-      <Container className="search text-light">
-        <div className="row">
-          <h1 className="text-primary">Search</h1>
-        </div>
+      <div className="row">
+        <div className="col">
+          <div className="row">
+            <Form>
+              <Form.Group>
+                <Form.Label>Search Type</Form.Label>
 
-        <div className="row">
-
-          <div className="col">            
-            <div className="row">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Search Type</Form.Label>
-                  <Form.Control
-                    as="select"
-                    onChange={(e) => setQueryType(e.target.value)
-                    }
-                  >
-                    {options.map((option) => (
-                      <option value={option.value}>{option.label}</option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-              </Form>
-            </div>
-          </div>
-
-          <div className="col searchParameters">
-            <div className="row">
-              <Form>
-                <Form.Group className="mb-3" controlId="formYear">
-                  <Form.Label>Year</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder={year}
-                    min="1950"
-                    max="2021"
-                    step="1"
-                    value={year}
-                    onChange={(e) => setYear(e.target.value)}
-                  />
-                </Form.Group>
-
-                {/* <Form.Group className="mb-3" controlId="formRound">
-                  <Form.Label>Round</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder={round}
-                    min="0"
-                    max="22"
-                    step="1"
-                    value={round}
-                    onChange={(e) => setRound(e.target.value)}
-                  />
-                </Form.Group> */}
-              </Form>
-            </div>
+                <Form.Control as="select">
+                  <option value="driverStandings">
+                    Driver Standings
+                  </option>
+                  <option value="circuits">Circuits</option>
+                  <option value="raceResults">Race Results - Coming soon</option>
+                  <option value="seasonResults">Season Results - Coming soon</option>
+                </Form.Control>
+              </Form.Group>
+            </Form>
           </div>
         </div>
+        <div className="col searchParameters">
+          <div className="row">
+            <Form>
+              <Form.Group className="mb-3" controlId="formYear">
+                <Form.Label>Year</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder={year}
+                  min="1950"
+                  max="2021"
+                  step="1"
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                />
+              </Form.Group>
 
-        <div className="mb-2">
-          <Button onClick={search}>SEARCH</Button>
+              <Form.Group className="mb-3" controlId="formYear">
+                <Form.Label>Round</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder={round}
+                  min="0"
+                  max="22"
+                  step="1"
+                  value={round}
+                  onChange={(e) => setYear(e.target.value)}
+                />
+              </Form.Group>
+            </Form>
+          </div>
         </div>
-      </Container>
-    ),
-  };
+      </div>
+      <div className="mb-2">
+        <Button onClick={getDriverStandings}>SEARCH</Button>
+      </div>
+
+      <div>
+        <SeasonStandingsList constructorDrivers={constructorDriversResults} />
+      </div>
+    </Container>
+  );
 };
 
-export default useSearch;
+export default Search;

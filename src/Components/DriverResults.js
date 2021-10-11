@@ -1,7 +1,4 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-//import "./CSS/driver.css";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 const DriverResults = ({
   driverId,
@@ -25,13 +22,11 @@ const DriverResults = ({
           </a>
         </Card.Header>
         <Card.Body>
-          <Card.Text>
             <div className="container">
               <div className="row">points: {points}</div>
               <div className="row">position: {position}</div>
               <div className="row">wins: {wins}</div>
             </div>
-          </Card.Text>
         </Card.Body>
       </Card>
     </div>

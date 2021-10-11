@@ -1,14 +1,16 @@
 import ConstructorDrivers from './ConstructorDrivers'
+import { Container } from "react-bootstrap";
 
 
-const ConstructorDriversList = ({constructorDrivers}) => {
 
-    if (Object.keys(constructorDrivers).length > 0){
+const ConstructorDriversList = ({searchResults}) => {
+
+    if (Object.keys(searchResults).length > 0 && searchResults[0].hasOwnProperty('constructorId')){
         return (
-            <div className="container results-list">
+            <Container className="results-list">
     
                 <div className="row">
-                    {constructorDrivers.map(constructor => (
+                    {searchResults.map(constructor => (
                         <ConstructorDrivers
                             constructorId={constructor.constructorId}
                             constructorUrl={constructor.url}
@@ -19,15 +21,14 @@ const ConstructorDriversList = ({constructorDrivers}) => {
                     ))}
                     
                 </div>
-    
-            </div>
+
+            </Container>
         )
     }else{
         return (
             <div></div>
         )
-    }
-    
+    }    
 }
 
 export default ConstructorDriversList;

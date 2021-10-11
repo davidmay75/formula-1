@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import DriverResults from "./DriverResults";
 
 const ConstructorDrivers = ({
@@ -32,6 +30,7 @@ const ConstructorDrivers = ({
                 wins={driver.wins}
                 position={driver.position}
                 points={driver.points}
+                key={driver.driverId}
               />
             ))}
           </div>

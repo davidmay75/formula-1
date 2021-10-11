@@ -1,52 +1,39 @@
-import Driver from './Driver'
-import Constructor from './Constructor'
-//import ConstructorDrivers from './ConstructorDrivers'
+import SeasonStandingsList from "./SeasonStandingsList";
+import CircuitsList from "./CircuitsList";
 
+import { Container } from "react-bootstrap";
 
 //this is where I should order driverStandings by constructor?
 
-const Results = ({driverResults, constructorResults}) => {
-    //console.log(driverResults)
+//I need to take queryType and have an object that correlates it to the list coompnent i need?
+
+const Results = ({ searchResults, queryType }) => {
+  //results - onject containing results to pass to the list component
+  //resultsType - which compnent to render
+  let Component = "";
+
+  switch (queryType) {
+    case "driverStandings":
+      Component = SeasonStandingsList;
+      break;
+    case "circuits":
+      Component = CircuitsList;
+      break;
+    default:
+        Component = SeasonStandingsList;
+  }
+
+  if (Object.keys(searchResults).length > 0) {
     return (
-        <div className="results">
-
+      <Container className="results">
         <div>
+          <Component searchResults={searchResults} />
         </div>
-    
-
-            {/* <ul>
-                {driverResults.map(driver => (
-                    <li key={driver.driverId}>
-                        <Driver 
-                            driverId={driver.driverId}
-                            code={driver.code}
-                            url={driver.url}
-                            givenName={driver.givenName}
-                            familyName={driver.familyName}
-                            dateOfBirth={driver.dateOfBirth}
-                            nationality={driver.nationality}       
-                            constructor={driver.constructor}                 
-                        />
-                        <br />
-                    </li>
-                ))}
-            </ul> */}
-
-            <ul>
-                {constructorResults.map(constructor => (
-                    <li key={constructor.constructorId}>
-                        <Constructor
-                            constructorId={constructor.driverId}
-                            url={constructor.url}
-                            name={constructor.name}
-                            nationality={constructor.nationality}                        
-                        />
-                        <br />
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
+      </Container>
+    );
+  } else {
+    return <div></div>;
+  }
+};
 
 export default Results;

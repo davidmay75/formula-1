@@ -9,42 +9,11 @@ const ConstructorDrivers = ({
   img,
   drivers,
 }) => {
-  //const [image, setImage] = useState("")
-
-  // useEffect(() => {
-  //     if (image === "" && url !== ""){
-  //         let constructorName = /[^/]*$/.exec(url)[0]
-  //         console.log(constructorName)
-
-  //         axios.get('http://localhost:3001/WikiImage', {
-  //             params: {
-  //                 driver: constructorName
-  //             }
-  //         })
-  //         .then(res => {
-
-  //             setImage(res.data.imgUrl)
-
-  //         }).catch((e) => {
-  //             console.log(e)
-  //         })
-  //     }else{
-  //         console.log("ELSE")
-  //     }
-  // }, [image, url])
-
-  //SORTY DRIVERS WITHIN CONSTRUCTOR BY THEIR POINTS
 
   return (
     <div className="container">
-      {/* <img src={image} alt='' style={{ maxHeight: '400px', width: 'auto' }}/> */}
-
-      <div>
-        {constructorName} - {constructorNationality}
-      </div>
-
-      <div>
-        <a href={constructorUrl}>Team Wikipedia</a>
+      <div className="constructorName">        
+        <a href={constructorUrl}>{constructorName} - {constructorNationality}</a>      
       </div>
 
       <div className="drivers">
