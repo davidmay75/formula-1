@@ -3,13 +3,6 @@ import axios from "axios";
 import { Container, Form, Button } from "react-bootstrap";
 
 const useSearch = () => {
-  const [searchResults, setSearchResults] = useState([]);
-  const [queryType, setQueryType] = useState("driverStandings");
-
-  const [year, setYear] = useState("2021");
-  //const [round, setRound] = useState(0);
-  const [groupByTeam, setGroupByTeam] = useState(true);
-
   const options = [
     {
       label: "Driver Standings",
@@ -24,6 +17,14 @@ const useSearch = () => {
       value: "schedule",//this is a blank query type for api - just need year
     },
   ];
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [queryType, setQueryType] = useState(options[0].value);
+  const [year, setYear] = useState("2021");
+  //const [round, setRound] = useState(0);
+  const [groupByTeam, setGroupByTeam] = useState(true);
+
+  
 
   function search() {
 
@@ -45,6 +46,8 @@ const useSearch = () => {
   function generateUrl() {
     //http://ergast.com/api/f1/' year / round / queryType.json
     //schedules has no queryType
+    //I could probably pass in the baseUrl and any supplied parameters
+    //if paramter is suppled - add it to url properly - make sure /s are accurate
   }
 
   function getSchedule() {

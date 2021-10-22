@@ -1,4 +1,4 @@
-import { Card, Row, Button, Accordion, Container } from "react-bootstrap";
+import { Card, Row, Button, Accordion, Container, Col } from "react-bootstrap";
 import axios from "axios";
 
 import Circuit from "./Circuit";
@@ -26,9 +26,7 @@ const ScheduleRace = ({ Race }) => {
         const data = response.MRData;
 
         if (data.hasOwnProperty("RaceTable")) {
-
           setRaceResults(data.RaceTable.Races[0].Results);
-          
         } else {
           console.log("No RaceTable...");
         }
@@ -46,16 +44,55 @@ const ScheduleRace = ({ Race }) => {
         </Card.Header>
         <Card.Body>
           <Container>
-            <Row>Round {Race.round}</Row>
+            <Row>
+              <Col>
+                {" "}
+                <strong>
+                  {" "}
+                  <a href={Race.Circuit.url}>{Race.Circuit.circuitName}</a>
+                </strong>
+              </Col>{" "}
+            </Row>
 
             <Row>
-              {formattedDate + " at "}
-              {Race.time}
+              <Col>
+                {Race.Circuit.Location.locality},{" "}
+                {Race.Circuit.Location.country}
+              </Col>{" "}
+            </Row>
+
+
+            <Row>
+              <a
+                href={
+                  "http://maps.google.com/maps?t=k&z=20&q=" +
+                  Race.Circuit.Location.lat +
+                  "," +
+                  Race.Circuit.Location.long
+                }
+                className="underline"
+                // href={"https://www.google.com/maps/@"+ Circuit.Location.lat +", " + Circuit.Location.long + ",9z"} the zoom is too far in??
+              >
+                {Race.Circuit.Location.lat}, {Race.Circuit.Location.long}
+              </a>
+            </Row>
+            <Row>
+              <Col>
+                {formattedDate + " at "}
+                {Race.time}
+              </Col>
+            </Row>
+
+            
+           
+
+            <Row>
+              <Col> Round {Race.round} </Col>{" "}
             </Row>
           </Container>
         </Card.Body>
 
-        {/* Circuit Information accordian*/}
+        {/* Circuit Information accordian
         <Accordion>
           <Card bg="dark">
             <Card.Header>
@@ -69,7 +106,7 @@ const ScheduleRace = ({ Race }) => {
               </Card.Body>
             </Accordion.Collapse>
           </Card>
-        </Accordion>
+        </Accordion>*/}
         {/* Race Results accordian*/}
         <Accordion>
           <Card bg="dark">
