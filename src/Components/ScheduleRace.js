@@ -1,7 +1,7 @@
 import { Card, Row, Button, Accordion, Container, Col } from "react-bootstrap";
 import axios from "axios";
 
-import Circuit from "./Circuit";
+//import Circuit from "./Circuit";
 import RaceResultsList from "./RaceResultsList";
 import { useState } from "react";
 
@@ -40,7 +40,9 @@ const ScheduleRace = ({ Race }) => {
     <Container className="scheduleRace">
       <Card bg="primary">
         <Card.Header as="h4">
-          <a href={Race.url}>{Race.raceName}</a>
+          <strong>
+            <a href={Race.url}>{Race.raceName}</a>
+          </strong>
         </Card.Header>
         <Card.Body>
           <Container>
@@ -61,7 +63,6 @@ const ScheduleRace = ({ Race }) => {
               </Col>{" "}
             </Row>
 
-
             <Row>
               <a
                 href={
@@ -73,7 +74,7 @@ const ScheduleRace = ({ Race }) => {
                 className="underline"
                 // href={"https://www.google.com/maps/@"+ Circuit.Location.lat +", " + Circuit.Location.long + ",9z"} the zoom is too far in??
               >
-                {Race.Circuit.Location.lat}, {Race.Circuit.Location.long}
+                Track Map
               </a>
             </Row>
             <Row>
@@ -82,9 +83,6 @@ const ScheduleRace = ({ Race }) => {
                 {Race.time}
               </Col>
             </Row>
-
-            
-           
 
             <Row>
               <Col> Round {Race.round} </Col>{" "}

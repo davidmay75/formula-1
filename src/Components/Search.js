@@ -13,7 +13,7 @@ const useSearch = () => {
       value: "circuits",
     },
     {
-      label: "Race Schedule",
+      label: "Race Schedule and Results",
       value: "schedule",//this is a blank query type for api - just need year
     },
   ];
